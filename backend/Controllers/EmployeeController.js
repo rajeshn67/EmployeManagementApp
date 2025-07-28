@@ -6,6 +6,14 @@ const createEmployee = async (req, res) => {
         const body = req.body;
         const profileImage = req?.file ? req?.file?.path : null;
         body.profileImage = profileImage;
+        // Check for duplicate email
+        const existingEmp = await EmployeeModel.findOne({ email: body.email });
+        if (existingEmp) {
+            return res.status(400).json({
+                message: 'Employee with this email already exists',
+                success: false
+            });
+        }
         const emp = new EmployeeModel(body);
 
         await emp.save();
