@@ -87,10 +87,15 @@ function EmployeeTable({
                 </thead>
                 <tbody>
                     {
-                        employees.length === 0 ? <div> Data Not Found</div>
-                            : employees.map((emp) => (
+                        employees.length === 0 ? (
+                            <tr>
+                                <td colSpan={headers.length} style={{ textAlign: 'center' }}>Data Not Found</td>
+                            </tr>
+                        ) : (
+                            employees.map((emp) => (
                                 <TableRow employee={emp} key={emp._id} />
                             ))
+                        )
                     }
                 </tbody>
             </table>
